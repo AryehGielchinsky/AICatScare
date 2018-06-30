@@ -16,7 +16,7 @@ with PiCamera() as camera:
     while True:
         time_now = datetime.now(tz=Israel_TZ)
         sun = city.sun(date=time_now, local=True)
-        if sun['dawn'] < time_now < sun['dusk']:
+        if sun['sunrise'] < time_now < sun['sunset']:
             x=time_now.strftime("%Y-%m-%d %H:%M:%S")
             camera.capture('/mnt/nas/{}.jpg'.format(x))
             print(x)
