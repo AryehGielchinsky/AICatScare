@@ -3,6 +3,7 @@ from time import sleep
 from datetime import datetime, timezone
 import pytz
 from astral import Astral
+import sys
 
 Israel_TZ = pytz.timezone('Israel')
 a = Astral()
@@ -18,8 +19,12 @@ with PiCamera() as camera:
         sun = city.sun(date=time_now, local=True)
         if sun['sunrise'] < time_now < sun['sunset']:
             x=time_now.strftime("%Y-%m-%d %H:%M:%S")
-            camera.capture('/mnt/nas/{}.jpg'.format(x))
-            print(x)
+            try:
+                camera.capture('/mnt/nas/{}.jpg'.format(x))
+                print(x)
+            except:
+                e = sys.exc_info()[0]
+                print(e)
         sleep(30)
         
         
